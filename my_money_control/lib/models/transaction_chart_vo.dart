@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 import 'package:my_money_control/utils/format.dart';
 
 class TransactionChartVO {
@@ -25,7 +27,7 @@ class TransactionChartVO {
     );
   }
 
-  String get label => Format.getDataDiaMes(date);
+  String get label => DateFormat('dd/MM').format(date);
 
   double get percentageIn => valueIn / totalIn;
 

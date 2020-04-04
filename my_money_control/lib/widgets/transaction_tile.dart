@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:my_money_control/models/transaction.dart';
 
@@ -97,7 +98,7 @@ class TransactionTile extends StatelessWidget {
             style: titleTextStyle,
           ),
           Text(
-            Format.getDataFormatada(transaction.date),
+            DateFormat('dd/MM/y').format(transaction.date),
             style: subtitleTextStyle,
           ),
         ],
