@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 
 enum TransactionType { In, Out }
 
-class Transaction {
+class Transaction implements Comparable<Transaction> {
   String id;
   String title;
   String description;
@@ -27,4 +27,15 @@ class Transaction {
     @required this.value,
     DateTime date,
   }) : this.date = date ?? DateTime.now();
+
+  @override
+  int compareTo(Transaction other) {
+    int dateCmp = other.date.compareTo(this.date);
+    if (dateCmp != 0) {
+      return dateCmp;
+    }
+
+    return this.type.index.compareTo(other.type.index);
+  }
 }
+
