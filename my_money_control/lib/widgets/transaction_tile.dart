@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:my_money_control/models/transaction.dart';
+
 import 'package:my_money_control/utils/format.dart';
 import 'package:my_money_control/utils/styles.dart';
 
@@ -62,12 +63,14 @@ class TransactionTile extends StatelessWidget {
                 ? Colors.green
                 : Colors.red,
           ),
-          Text(
-            'R\$ ${transaction.value?.toStringAsFixed(2)}',
-            style: boldTextStyle.copyWith(
-              color: transaction.type == TransactionType.In
-                  ? Colors.green
-                  : Colors.red,
+          FittedBox(
+            child: Text(
+              Format.currencyFormat(transaction.value),
+              style: boldTextStyle.copyWith(
+                color: transaction.type == TransactionType.In
+                    ? Colors.green
+                    : Colors.red,
+              ),
             ),
           ),
         ],
