@@ -58,7 +58,9 @@ class _HomePageState extends State<HomePage> {
         title: FadeInLeft(
           child: Row(
             children: <Widget>[
-              Text('My Money Control - '),
+              Text(
+                'My Money Control - ',
+              ),
               Text('${_transactions.length}'),
             ],
           ),
