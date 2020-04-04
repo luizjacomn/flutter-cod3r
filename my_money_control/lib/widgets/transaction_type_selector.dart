@@ -26,63 +26,21 @@ class TransactionTypeSelector extends FormField<TransactionType> {
                   mainAxisAlignment: mainAxisAlignment,
                   children: [
                     Flexible(
-                      child: InkWell(
-                        onTap: () {
-                          state.didChange(TransactionType.In);
-                          onSaved(state.value);
-                        },
-                        child: AnimatedContainer(
-                          duration: Duration(milliseconds: 250),
-                          width: size.width / 4,
-                          padding: const EdgeInsets.all(8.0),
-                          decoration: BoxDecoration(
-                            color: initialValue == TransactionType.In
-                                ? Colors.green
-                                : Theme.of(context).disabledColor,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(8.0),
-                              bottomLeft: Radius.circular(8.0),
-                            ),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Receita'.toUpperCase(),
-                              style: boldTextStyle.copyWith(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
+                      child: _buildInOption(
+                        context,
+                        state,
+                        onSaved,
+                        size,
+                        initialValue,
                       ),
                     ),
                     Flexible(
-                      child: InkWell(
-                        onTap: () {
-                          state.didChange(TransactionType.Out);
-                          onSaved(state.value);
-                        },
-                        child: AnimatedContainer(
-                          duration: Duration(milliseconds: 250),
-                          width: size.width / 4,
-                          padding: const EdgeInsets.all(8.0),
-                          decoration: BoxDecoration(
-                            color: initialValue == TransactionType.Out
-                                ? Colors.red
-                                : Theme.of(context).disabledColor,
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(8.0),
-                              bottomRight: Radius.circular(8.0),
-                            ),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Despesa'.toUpperCase(),
-                              style: boldTextStyle.copyWith(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
+                      child: _buildOutOption(
+                        context,
+                        state,
+                        onSaved,
+                        size,
+                        initialValue,
                       ),
                     ),
                   ],
@@ -102,4 +60,82 @@ class TransactionTypeSelector extends FormField<TransactionType> {
             );
           },
         );
+
+  static void _onOptionChange(
+    FormFieldState<TransactionType> state,
+    FormFieldSetter<TransactionType> onSaved,
+    TransactionType transactionType,
+  ) {
+    state.didChange(transactionType);
+    state.validate();
+    onSaved(state.value);
+  }
+
+  static Widget _buildInOption(
+    BuildContext context,
+    FormFieldState<TransactionType> state,
+    FormFieldSetter<TransactionType> onSaved,
+    Size size,
+    TransactionType initialValue,
+  ) {
+    return InkWell(
+      onTap: () => _onOptionChange(state, onSaved, TransactionType.In),
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 250),
+        width: size.width / 4,
+        padding: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          color: initialValue == TransactionType.In
+              ? Colors.green
+              : Theme.of(context).disabledColor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(8.0),
+            bottomLeft: Radius.circular(8.0),
+          ),
+        ),
+        child: Center(
+          child: Text(
+            'Receita'.toUpperCase(),
+            style: boldTextStyle.copyWith(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  static Widget _buildOutOption(
+    BuildContext context,
+    FormFieldState<TransactionType> state,
+    FormFieldSetter<TransactionType> onSaved,
+    Size size,
+    TransactionType initialValue,
+  ) {
+    return InkWell(
+      onTap: () => _onOptionChange(state, onSaved, TransactionType.Out),
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 250),
+        width: size.width / 4,
+        padding: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          color: initialValue == TransactionType.Out
+              ? Colors.red
+              : Theme.of(context).disabledColor,
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(8.0),
+            bottomRight: Radius.circular(8.0),
+          ),
+        ),
+        child: Center(
+          child: Text(
+            'Despesa'.toUpperCase(),
+            style: boldTextStyle.copyWith(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

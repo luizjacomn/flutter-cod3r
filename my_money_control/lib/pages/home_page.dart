@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
               context: context,
               builder: (context) {
                 return Container(
-                  height: size.height * 0.90,
+                  height: size.height * 0.70,
                   child: TransactionForm(
                     onCancel: Navigator.of(context).pop,
                     onAddTransaction: (transaction) {
