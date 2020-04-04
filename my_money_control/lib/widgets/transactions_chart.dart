@@ -53,55 +53,62 @@ class TransactionsChart extends StatelessWidget {
           ListTileTheme(
             contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
             child: ExpansionTile(
-              title: Text('Resumo'),
+              title: Text('Resumo dos últimos $daysNumber dias'),
               trailing: Text(''),
               children: <Widget>[
-                SlideInLeft(
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Container(
-                        height: 50.0,
-                        width: size.width * 0.80,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColorLight,
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(24.0),
-                            bottomRight: Radius.circular(24.0),
-                          ),
-                        ),
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                    'Receitas dos últimos $daysNumber dias'),
+                Row(
+                  children: <Widget>[
+                    SlideInLeft(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Container(
+                            height: 50.0,
+                            width: size.width * 0.50,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColorLight,
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(24.0),
+                                bottomRight: Radius.circular(24.0),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8.0, vertical: 4.0),
-                                child: Chip(
-                                  backgroundColor: Colors.white,
-                                  label: Text(
-                                    'R\$ ${sumInForRange.toStringAsFixed(2)}',
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: Colors.green,
-                                      fontWeight: FontWeight.bold,
+                            ),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Receitas'.toUpperCase(),
+                                      style: TextStyle(
+                                        color: Theme.of(context).primaryColorDark,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
-                                ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0, vertical: 4.0),
+                                    child: Chip(
+                                      backgroundColor: Colors.white,
+                                      label: Text(
+                                        '${Format.currencyFormat(sumInForRange)}',
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ),
                 SlideInRight(
                   child: Align(
                     alignment: Alignment.centerRight,
@@ -109,7 +116,7 @@ class TransactionsChart extends StatelessWidget {
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Container(
                         height: 50.0,
-                        width: size.width * 0.80,
+                        width: size.width * 0.50,
                         decoration: BoxDecoration(
                           color: Theme.of(context).primaryColorLight,
                           borderRadius: BorderRadius.only(
@@ -127,7 +134,7 @@ class TransactionsChart extends StatelessWidget {
                                 child: Chip(
                                   backgroundColor: Colors.white,
                                   label: Text(
-                                    'R\$ ${sumOutForRange.toStringAsFixed(2)}',
+                                    '${Format.currencyFormat(sumOutForRange)}',
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       color: Colors.red,
@@ -139,7 +146,12 @@ class TransactionsChart extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                    'Despesas dos últimos $daysNumber dias'),
+                                  'Despesas'.toUpperCase(),
+                                  style: TextStyle(
+                                    color: Theme.of(context).primaryColorDark,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -147,6 +159,8 @@ class TransactionsChart extends StatelessWidget {
                       ),
                     ),
                   ),
+                ),
+                  ],
                 ),
               ],
             ),

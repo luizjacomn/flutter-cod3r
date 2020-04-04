@@ -32,11 +32,19 @@ class TransactionChartVO {
   double get percentageOut => valueOut / totalOut;
 
   String get labelIn {
-    return 'Receitas de ($label): R\$ ${(valueIn).toStringAsFixed(2)} correspondente\na ${(percentageIn * 100).toStringAsFixed(2)}% do total do período (R\$ ${totalIn.toStringAsFixed(2)}).';
+    if (valueIn == 0.0) {
+      return 'Não há transações de receita para esta data';
+    }
+
+    return 'Receitas de ($label): ${Format.currencyFormat(valueIn)} correspondente\na ${Format.percentFormat(percentageIn)} do total do período (${Format.currencyFormat(totalIn)}).';
   }
 
   String get labelOut {
-    return 'Despesas de ($label): R\$ ${(valueOut).toStringAsFixed(2)} correspondente\na ${(percentageOut * 100).toStringAsFixed(2)}% do total do período (R\$ ${totalOut.toStringAsFixed(2)}).';
+    if (valueOut == 0.0) {
+      return 'Não há transações de despesa para esta data';
+    }
+    
+    return 'Despesas de ($label): ${Format.currencyFormat(valueOut)} correspondente\na ${Format.percentFormat(percentageOut)} do total do período (${Format.currencyFormat(totalOut)}).';
   }
 
   double get saldo => valueIn - valueOut;

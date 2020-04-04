@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:my_money_control/models/transaction_chart_vo.dart';
 import 'package:my_money_control/utils/dates.dart';
+import 'package:my_money_control/utils/format.dart';
 import 'package:my_money_control/utils/styles.dart';
 
 class ChartBar extends StatelessWidget {
@@ -19,15 +20,24 @@ class ChartBar extends StatelessWidget {
         children: <Widget>[
           Tooltip(
             message: 'Saldo de ${transactionChartVO.label}',
-            child: Text(
-              'R\$ ${transactionChartVO.saldo.toStringAsFixed(2)}',
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color:
-                    transactionChartVO.saldo >= 0 ? Colors.green : Colors.red,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            child: transactionChartVO.saldo == 0
+                ? Text(
+                    '-',
+                    style: TextStyle(
+                      color: Colors.amber,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                : Text(
+                    '${Format.currencyFormat(transactionChartVO.saldo)}',
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: transactionChartVO.saldo > 0
+                          ? Colors.green
+                          : Colors.red,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
           ),
           Expanded(
             child: Stack(
@@ -95,7 +105,7 @@ class ChartBar extends StatelessWidget {
                             quarterTurns: 3,
                             child: Center(
                               child: Text(
-                                '${(transactionChartVO.percentageIn * 100.0).toStringAsFixed(2)}%',
+                                '${Format.percentFormat(transactionChartVO.percentageIn)}',
                                 style: TextStyle(
                                   color: Colors.white,
                                   shadows: [
@@ -119,7 +129,7 @@ class ChartBar extends StatelessWidget {
                             quarterTurns: 3,
                             child: Center(
                               child: Text(
-                                '${(transactionChartVO.percentageOut * 100.0).toStringAsFixed(2)}%',
+                                '${Format.percentFormat(transactionChartVO.percentageOut)}',
                                 style: TextStyle(
                                   color: Colors.white,
                                   shadows: [
