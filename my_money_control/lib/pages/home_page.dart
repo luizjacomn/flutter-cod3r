@@ -1,9 +1,9 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:my_money_control/models/transaction.dart';
-import 'package:my_money_control/utils/styles.dart';
-import 'package:my_money_control/widgets/transaction_tile.dart';
-
-import 'package:animate_do/animate_do.dart';
+import 'package:my_money_control/widgets/transaction_form.dart';
+import 'package:my_money_control/widgets/transactions_chart.dart';
+import 'package:my_money_control/widgets/transactions_list.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,19 +13,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final _titleController = TextEditingController();
-  final _descriptionController = TextEditingController();
-  final _valueController = TextEditingController();
-
   final _transactions = [
-    Transaction(
+    Transaction.mock(
       id: '1',
       title: 'FIES',
       description: 'Parcela 35',
       type: TransactionType.Out,
       value: 258.11,
     ),
-    Transaction(
+    Transaction.mock(
       id: '2',
       title: 'Energia',
       description: 'Fatura 03/2020',
@@ -33,7 +29,7 @@ class _HomePageState extends State<HomePage> {
       value: 52.45,
       date: DateTime(2020, 4, 2),
     ),
-    Transaction(
+    Transaction.mock(
       id: '3',
       title: 'Salário',
       description: 'Salário 03/2020',
@@ -42,11 +38,31 @@ class _HomePageState extends State<HomePage> {
     ),
   ];
 
+  _addTransaction(Transaction transaction) {
+    setState(() {
+      _transactions.insert(0, transaction);
+    });
+  }
+
+  _removeTransaction(Transaction transaction) {
+    setState(() {
+      _transactions.remove(transaction);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: FadeInLeft(child: Text('My Money Control')),
+        title: FadeInLeft(
+          child: Row(
+            children: <Widget>[
+              Text('My Money Control - '),
+              Text('${_transactions.length}'),
+            ],
+          ),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       floatingActionButton: ElasticInDown(
@@ -59,57 +75,30 @@ class _HomePageState extends State<HomePage> {
           ),
           onPressed: () {
             showModalBottomSheet(
-                context: context,
-                builder: (context) {
-                  return _form();
-                });
+              isScrollControlled: true,
+              context: context,
+              builder: (context) {
+                return Container(
+                  height: size.height * 0.90,
+                  child: TransactionForm(
+                    onCancel: Navigator.of(context).pop,
+                    onAddTransaction: (transaction) {
+                      _addTransaction(transaction);
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                );
+              },
+            );
           },
         ),
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          // gráfico
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Card(
-              child: Placeholder(
-                fallbackHeight: 150,
-                fallbackWidth: double.infinity,
-              ),
-            ),
-          ),
-          // lista de lançamentos
-          Column(
-            children: _transactions
-                .map((tr) => TransactionTile(transaction: tr))
-                .toList(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _form() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'Nova transação',
-              style: boldTextStyle.copyWith(
-                fontSize: 24.0,
-              ),
-            ),
-          ),
-          Column(
-            children: <Widget>[
-              TextField(
-                decoration: InputDecoration(hintText: 'Título'),
-              ),
-            ],
+          TransactionsChart(transactions: _transactions),
+          TransactionsList(
+            transactions: _transactions,
+            onRemoveTransaction: _removeTransaction,
           ),
         ],
       ),
