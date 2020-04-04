@@ -45,9 +45,9 @@ class TransactionsChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final mQuery = MediaQuery.of(context);
     return Flexible(
-      flex: 5,
+      flex: mQuery.orientation== Orientation.landscape ? 14:5,
       child: Column(
         children: <Widget>[
           ListTileTheme(
@@ -65,7 +65,7 @@ class TransactionsChart extends StatelessWidget {
                           padding: const EdgeInsets.only(bottom: 8.0),
                           child: Container(
                             height: 50.0,
-                            width: size.width * 0.50,
+                            width: mQuery.size.width * 0.50,
                             decoration: BoxDecoration(
                               color: Theme.of(context).primaryColorLight,
                               borderRadius: BorderRadius.only(
@@ -116,7 +116,7 @@ class TransactionsChart extends StatelessWidget {
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Container(
                         height: 50.0,
-                        width: size.width * 0.50,
+                        width: mQuery.size.width * 0.50,
                         decoration: BoxDecoration(
                           color: Theme.of(context).primaryColorLight,
                           borderRadius: BorderRadius.only(
