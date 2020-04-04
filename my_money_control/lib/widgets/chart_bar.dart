@@ -65,7 +65,7 @@ class ChartBar extends StatelessWidget {
                     Visibility(
                       visible: !transactionChartVO.percentageIn.isNegative,
                       child: FractionallySizedBox(
-                        heightFactor: !transactionChartVO.percentageOut.isNaN
+                        heightFactor: !transactionChartVO.percentageIn.isNaN
                             ? transactionChartVO.percentageIn
                             : 0.0,
                         child: FlipInX(
