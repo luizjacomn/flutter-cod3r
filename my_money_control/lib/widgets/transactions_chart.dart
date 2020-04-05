@@ -57,6 +57,7 @@ class TransactionsChart extends StatelessWidget {
               trailing: Text(''),
               children: <Widget>[
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     SlideInLeft(
                       child: Align(
@@ -65,7 +66,7 @@ class TransactionsChart extends StatelessWidget {
                           padding: const EdgeInsets.only(bottom: 8.0),
                           child: Container(
                             height: 50.0,
-                            width: mQuery.size.width * 0.50,
+                            width: mQuery.size.width * 0.5,
                             decoration: BoxDecoration(
                               color: Theme.of(context).primaryColorLight,
                               borderRadius: BorderRadius.only(
@@ -82,8 +83,9 @@ class TransactionsChart extends StatelessWidget {
                                     child: Text(
                                       'Receitas'.toUpperCase(),
                                       style: TextStyle(
-                                        color: Theme.of(context).primaryColorDark,
+                                        fontSize: 12.0,
                                         fontWeight: FontWeight.bold,
+                                        color: Theme.of(context).primaryColorDark,
                                       ),
                                     ),
                                   ),
@@ -96,8 +98,9 @@ class TransactionsChart extends StatelessWidget {
                                         '${Format.currencyFormat(sumInForRange)}',
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
-                                          color: Colors.green,
+                                          fontSize: 12.0,
                                           fontWeight: FontWeight.bold,
+                                          color: Colors.green,
                                         ),
                                       ),
                                     ),
@@ -116,7 +119,7 @@ class TransactionsChart extends StatelessWidget {
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: Container(
                         height: 50.0,
-                        width: mQuery.size.width * 0.50,
+                        width: mQuery.size.width * 0.5,
                         decoration: BoxDecoration(
                           color: Theme.of(context).primaryColorLight,
                           borderRadius: BorderRadius.only(
@@ -137,6 +140,7 @@ class TransactionsChart extends StatelessWidget {
                                     '${Format.currencyFormat(sumOutForRange)}',
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
+                                      fontSize: 12.0,
                                       color: Colors.red,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -148,8 +152,9 @@ class TransactionsChart extends StatelessWidget {
                                 child: Text(
                                   'Despesas'.toUpperCase(),
                                   style: TextStyle(
-                                    color: Theme.of(context).primaryColorDark,
+                                    fontSize: 12.0,
                                     fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).primaryColorDark,
                                   ),
                                 ),
                               ),

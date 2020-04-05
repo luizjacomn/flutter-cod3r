@@ -37,7 +37,7 @@ class TransactionTile extends StatelessWidget {
             child: OutlineButton(
               borderSide: BorderSide(color: Colors.redAccent),
               child: Text(
-                'remove'.toUpperCase(),
+                'remover'.toUpperCase(),
                 style: TextStyle(color: Colors.redAccent),
               ),
               onPressed: () => onRemove(transaction),

@@ -12,8 +12,8 @@ dependencies:
   
   animate_do: ^1.6.3
   cupertino_icons: ^0.1.2
-  intl: ^0.16.1
   flutter_masked_text: ^0.8.0
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:
