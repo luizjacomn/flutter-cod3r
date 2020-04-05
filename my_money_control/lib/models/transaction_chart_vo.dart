@@ -29,9 +29,23 @@ class TransactionChartVO {
 
   String get label => DateFormat('dd/MM').format(date);
 
-  double get percentageIn => valueIn / totalIn;
+  double get percentageIn {
+    double perc = valueIn / totalIn;
+    if (perc.isNaN) {
+      return 0.0;
+    }
 
-  double get percentageOut => valueOut / totalOut;
+    return perc;
+  }
+
+  double get percentageOut {
+    double perc = valueOut / totalOut;
+    if (perc.isNaN) {
+      return 0.0;
+    }
+
+    return perc;
+  }
 
   String get labelIn {
     if (valueIn == 0.0) {
@@ -45,7 +59,7 @@ class TransactionChartVO {
     if (valueOut == 0.0) {
       return 'Não há transações de despesa para esta data';
     }
-    
+
     return 'Despesas de ($label): ${Format.currencyFormat(valueOut)} correspondente\na ${Format.percentFormat(percentageOut)} do total do período (${Format.currencyFormat(totalOut)}).';
   }
 

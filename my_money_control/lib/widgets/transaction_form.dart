@@ -32,7 +32,7 @@ class _TransactionFormState extends State<TransactionForm> {
     initialValue: 0.0,
   );
   final _formKey = GlobalKey<FormState>();
-  DateTime _selectedDate;
+  DateTime _selectedDate = DateTime.now();
   TransactionType _selectedType;
 
   @override
@@ -112,30 +112,44 @@ class _TransactionFormState extends State<TransactionForm> {
             Row(
               children: <Widget>[
                 Expanded(
-                  child: Text(
-                    _selectedDate == null
-                        ? 'Nenhuma data selecionada'
-                        : 'Data selecionada: ${DateFormat('dd/MM/y').format(_selectedDate)}',
-                  ),
+                  child: _selectedDate == null
+                      ? Text('Nenhuma data selecionada')
+                      : RichText(
+                          text: TextSpan(
+                            text: 'Data da transação: ',
+                            style: Theme.of(context).textTheme.subtitle,
+                            children: <InlineSpan>[
+                              TextSpan(
+                                text:
+                                    '${DateFormat('dd/MM/y').format(_selectedDate)}',
+                                style: boldTextStyle.copyWith(
+                                  color: Theme.of(context).primaryColorDark,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                 ),
-                FlatButton(
-                  child: Text('Selecionar data'.toUpperCase()),
-                  onPressed: () {
-                    showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(2020),
-                      lastDate: DateTime.now(),
-                    ).then((date) {
-                      if (date == null) {
-                        return;
-                      }
+                FittedBox(
+                  child: FlatButton(
+                    child: Text('alterar data'.toUpperCase()),
+                    onPressed: () {
+                      showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2020),
+                        lastDate: DateTime.now(),
+                      ).then((date) {
+                        if (date == null) {
+                          return;
+                        }
 
-                      setState(() {
-                        _selectedDate = date;
+                        setState(() {
+                          _selectedDate = date;
+                        });
                       });
-                    });
-                  },
+                    },
+                  ),
                 ),
               ],
             ),
@@ -144,7 +158,7 @@ class _TransactionFormState extends State<TransactionForm> {
               child: TransactionTypeSelector(
                 context: context,
                 mainAxisAlignment: MainAxisAlignment.center,
-                initialValue: null,
+                initialValue: _selectedType,
                 validator: (type) {
                   return type == null
                       ? 'Deve selecionar o tipo da transação'

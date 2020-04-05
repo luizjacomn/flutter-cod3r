@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _recentsNumber = 7;
 
-  final _transactions = [];
+  final List<Transaction> _transactions = [];
 
   _addTransaction(Transaction transaction) {
     setState(() {
@@ -47,7 +47,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    _transactions.sort();
+    
+    if (_transactions.isNotEmpty) {
+      _transactions.sort();
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: FadeInLeft(

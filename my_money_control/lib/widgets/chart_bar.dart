@@ -105,7 +105,7 @@ class ChartBar extends StatelessWidget {
                             quarterTurns: 3,
                             child: Center(
                               child: Text(
-                                '${Format.percentFormat(transactionChartVO.percentageIn)}',
+                                '${Format.percentFormat(transactionChartVO.percentageIn, needMultiplyByHundred: true)}',
                                 style: TextStyle(
                                   color: Colors.white,
                                   shadows: [
@@ -129,7 +129,7 @@ class ChartBar extends StatelessWidget {
                             quarterTurns: 3,
                             child: Center(
                               child: Text(
-                                '${Format.percentFormat(transactionChartVO.percentageOut)}',
+                                '${Format.percentFormat(transactionChartVO.percentageOut, needMultiplyByHundred: true)}',
                                 style: TextStyle(
                                   color: Colors.white,
                                   shadows: [
