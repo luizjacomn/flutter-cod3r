@@ -14,30 +14,35 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double tSize = 14.0 * MediaQuery.of(context).textScaleFactor;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Column(
         children: <Widget>[
           Tooltip(
             message: 'Saldo de ${transactionChartVO.label}',
-            child: transactionChartVO.saldo == 0
-                ? Text(
-                    '-',
-                    style: TextStyle(
-                      color: Colors.amber,
-                      fontWeight: FontWeight.bold,
+            child: Material(
+              child: transactionChartVO.saldo == 0
+                  ? Text(
+                      '-',
+                      style: TextStyle(
+                        fontSize: tSize,
+                        color: Colors.amber,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  : Text(
+                      '${Format.currencyFormat(transactionChartVO.saldo)}',
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: tSize,
+                        color: transactionChartVO.saldo > 0
+                            ? Colors.green
+                            : Colors.red,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  )
-                : Text(
-                    '${Format.currencyFormat(transactionChartVO.saldo)}',
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: transactionChartVO.saldo > 0
-                          ? Colors.green
-                          : Colors.red,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+            ),
           ),
           Expanded(
             child: Stack(
@@ -104,17 +109,21 @@ class ChartBar extends StatelessWidget {
                           child: RotatedBox(
                             quarterTurns: 3,
                             child: Center(
-                              child: Text(
-                                '${Format.percentFormat(transactionChartVO.percentageIn, needMultiplyByHundred: true)}',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Colors.black,
-                                      blurRadius: 1.0,
-                                      offset: Offset(1.0, 1.0),
-                                    ),
-                                  ],
+                              child: Material(
+                                color: Colors.transparent,
+                                child: Text(
+                                  '${Format.percentFormat(transactionChartVO.percentageIn, needMultiplyByHundred: true)}',
+                                  style: TextStyle(
+                                    fontSize: tSize,
+                                    color: Colors.white,
+                                    shadows: [
+                                      BoxShadow(
+                                        color: Colors.black,
+                                        blurRadius: 1.0,
+                                        offset: Offset(1.0, 1.0),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -128,18 +137,22 @@ class ChartBar extends StatelessWidget {
                           child: RotatedBox(
                             quarterTurns: 3,
                             child: Center(
-                              child: Text(
-                                '${Format.percentFormat(transactionChartVO.percentageOut, needMultiplyByHundred: true)}',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Colors.black,
-                                      spreadRadius: 1.0,
-                                      blurRadius: 1.0,
-                                      offset: Offset(1.0, 1.0),
-                                    ),
-                                  ],
+                              child: Material(
+                                color: Colors.transparent,
+                                child: Text(
+                                  '${Format.percentFormat(transactionChartVO.percentageOut, needMultiplyByHundred: true)}',
+                                  style: TextStyle(
+                                    fontSize: tSize,
+                                    color: Colors.white,
+                                    shadows: [
+                                      BoxShadow(
+                                        color: Colors.black,
+                                        spreadRadius: 1.0,
+                                        blurRadius: 1.0,
+                                        offset: Offset(1.0, 1.0),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -160,14 +173,21 @@ class ChartBar extends StatelessWidget {
               child: Dates.isToday(transactionChartVO.date)
                   ? Tooltip(
                       message: 'Hoje',
-                      child: Text(transactionChartVO.label,
-                          style: boldTextStyle.copyWith(
-                            color: Theme.of(context).primaryColor,
-                          )),
+                      child: Material(
+                        child: Text(transactionChartVO.label,
+                            style: boldTextStyle.copyWith(
+                              fontSize: tSize,
+                              color: Theme.of(context).primaryColor,
+                            )),
+                      ),
                     )
-                  : Text(
-                      transactionChartVO.label,
-                      style: Theme.of(context).textTheme.subtitle,
+                  : Material(
+                      child: Text(
+                        transactionChartVO.label,
+                        style: Theme.of(context).textTheme.subtitle.copyWith(
+                              fontSize: tSize,
+                            ),
+                      ),
                     ),
             ),
           ),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -5,6 +6,7 @@ import 'package:my_money_control/models/transaction.dart';
 
 import 'package:my_money_control/utils/format.dart';
 import 'package:my_money_control/utils/styles.dart';
+import 'package:provider/provider.dart';
 
 class TransactionTile extends StatelessWidget {
   final Transaction transaction;
@@ -34,14 +36,7 @@ class TransactionTile extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: OutlineButton(
-              borderSide: BorderSide(color: Colors.redAccent),
-              child: Text(
-                'remover'.toUpperCase(),
-                style: TextStyle(color: Colors.redAccent),
-              ),
-              onPressed: () => onRemove(transaction),
-            ),
+            child: _buildRemoveButton(context),
           ),
         ],
       ),
@@ -94,7 +89,7 @@ class TransactionTile extends StatelessWidget {
             ),
           ),
           Text(
-            transaction.description,
+            transaction.description.isNotEmpty ? transaction.description : '-',
             style: titleTextStyle,
           ),
           Text(
@@ -104,5 +99,29 @@ class TransactionTile extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _buildRemoveButton(context) {
+    final label = 'remover'.toUpperCase();
+    final fn = () => onRemove(transaction);
+    return (Provider.of<bool>(context) ?? false)
+        ? CupertinoButton(
+            minSize: 24.0,
+            color: Colors.red,
+            child: Text(label),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 4.0,
+            ),
+            onPressed: fn,
+          )
+        : OutlineButton(
+            borderSide: BorderSide(color: Colors.redAccent),
+            child: Text(
+              label,
+              style: TextStyle(color: Colors.redAccent),
+            ),
+            onPressed: fn,
+          );
   }
 }

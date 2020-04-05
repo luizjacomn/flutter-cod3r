@@ -1,10 +1,15 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+
+import 'package:provider/provider.dart';
+import 'package:animate_do/animate_do.dart';
+
 import 'package:my_money_control/models/transaction.dart';
 import 'package:my_money_control/models/transaction_chart_vo.dart';
+
 import 'package:my_money_control/utils/dates.dart';
-import 'package:my_money_control/utils/format.dart';
+
 import 'package:my_money_control/widgets/chart_bar.dart';
+import 'package:my_money_control/widgets/resume_tile.dart';
 
 class TransactionsChart extends StatelessWidget {
   final List<Transaction> transactions;
@@ -47,135 +52,20 @@ class TransactionsChart extends StatelessWidget {
   Widget build(BuildContext context) {
     final mQuery = MediaQuery.of(context);
     return Flexible(
-      flex: mQuery.orientation== Orientation.landscape ? 14:5,
+      flex: mQuery.orientation == Orientation.landscape ? 14 : 5,
       child: Column(
         children: <Widget>[
-          ListTileTheme(
-            contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: ExpansionTile(
-              title: Text('Resumo dos últimos $daysNumber dias'),
-              trailing: Text(''),
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    SlideInLeft(
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: Container(
-                            height: 50.0,
-                            width: mQuery.size.width * 0.5,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColorLight,
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(24.0),
-                                bottomRight: Radius.circular(24.0),
-                              ),
-                            ),
-                            child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Receitas'.toUpperCase(),
-                                      style: TextStyle(
-                                        fontSize: 12.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Theme.of(context).primaryColorDark,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8.0, vertical: 4.0),
-                                    child: Chip(
-                                      backgroundColor: Colors.white,
-                                      label: Text(
-                                        '${Format.currencyFormat(sumInForRange)}',
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.green,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                SlideInRight(
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Container(
-                        height: 50.0,
-                        width: mQuery.size.width * 0.5,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColorLight,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(24.0),
-                            bottomLeft: Radius.circular(24.0),
-                          ),
-                        ),
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8.0, vertical: 4.0),
-                                child: Chip(
-                                  backgroundColor: Colors.white,
-                                  label: Text(
-                                    '${Format.currencyFormat(sumOutForRange)}',
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontSize: 12.0,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Despesas'.toUpperCase(),
-                                  style: TextStyle(
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Theme.of(context).primaryColorDark,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                  ],
-                ),
-              ],
-            ),
+          ResumeTile(
+            resumeDays: daysNumber,
+            resumeInValue: sumInForRange,
+            resumeOutValue: sumOutForRange,
           ),
           Expanded(
             child: SlideInLeft(
-              child: Align(
-                alignment: Alignment.center,
-                child: Container(
+              child: Container(
+                child: Center(
                   child: ListView.builder(
+                    shrinkWrap: true,
                     reverse: true,
                     scrollDirection: Axis.horizontal,
                     itemCount: groupedTransactions.length,
