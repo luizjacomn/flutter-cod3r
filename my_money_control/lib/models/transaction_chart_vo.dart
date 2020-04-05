@@ -52,7 +52,7 @@ class TransactionChartVO {
       return 'Não há transações de receita para esta data';
     }
 
-    return 'Receitas de ($label): ${Format.currencyFormat(valueIn)} correspondente\na ${Format.percentFormat(percentageIn)} do total do período (${Format.currencyFormat(totalIn)}).';
+    return 'Receitas de ($label): ${Format.currencyFormat(valueIn)} correspondente\na ${Format.percentFormat(percentageIn, needMultiplyByHundred: true)} do total do período (${Format.currencyFormat(totalIn)}).';
   }
 
   String get labelOut {
@@ -60,7 +60,7 @@ class TransactionChartVO {
       return 'Não há transações de despesa para esta data';
     }
 
-    return 'Despesas de ($label): ${Format.currencyFormat(valueOut)} correspondente\na ${Format.percentFormat(percentageOut)} do total do período (${Format.currencyFormat(totalOut)}).';
+    return 'Despesas de ($label): ${Format.currencyFormat(valueOut)} correspondente\na ${Format.percentFormat(percentageOut, needMultiplyByHundred: true)} do total do período (${Format.currencyFormat(totalOut)}).';
   }
 
   double get saldo => valueIn - valueOut;
