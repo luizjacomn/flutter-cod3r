@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_masked_text/flutter_masked_text.dart';
-import 'package:intl/intl.dart';
+
 import 'package:my_money_control/models/transaction.dart';
+
 import 'package:my_money_control/utils/styles.dart';
+
+import 'package:my_money_control/widgets/adaptative_date_picker.dart';
+import 'package:my_money_control/widgets/adaptative_text_form_field.dart';
 import 'package:my_money_control/widgets/corner_rounded_button.dart';
 import 'package:my_money_control/widgets/transaction_type_selector.dart';
 
@@ -73,8 +78,9 @@ class _TransactionFormState extends State<TransactionForm> {
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            TextFormField(
+            AdaptativeTextFormField(
               autofocus: true,
+              label: 'Título',
               controller: _titleController,
               textCapitalization: TextCapitalization.words,
               textInputAction: TextInputAction.next,
@@ -85,18 +91,18 @@ class _TransactionFormState extends State<TransactionForm> {
                   return 'Título deve conter pelo menos 3 caracteres';
                 }
               },
-              decoration: InputDecoration(labelText: 'Título'),
               onFieldSubmitted: (text) => _descriptionFocus.requestFocus(),
             ),
-            TextFormField(
+            AdaptativeTextFormField(
+              label: 'Descrição',
               controller: _descriptionController,
               focusNode: _descriptionFocus,
               textCapitalization: TextCapitalization.sentences,
               textInputAction: TextInputAction.next,
-              decoration: InputDecoration(labelText: 'Descrição'),
               onFieldSubmitted: (text) => _valueFocus.requestFocus(),
             ),
-            TextFormField(
+            AdaptativeTextFormField(
+              label: 'Valor',
               controller: _valueController,
               focusNode: _valueFocus,
               keyboardType: TextInputType.number,
@@ -107,51 +113,10 @@ class _TransactionFormState extends State<TransactionForm> {
                   return 'Valor deve ser maior que R\$ 0,00';
                 }
               },
-              decoration: InputDecoration(labelText: 'Valor'),
             ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: _selectedDate == null
-                      ? Text('Nenhuma data selecionada')
-                      : RichText(
-                          text: TextSpan(
-                            text: 'Data da transação: ',
-                            style: Theme.of(context).textTheme.subtitle,
-                            children: <InlineSpan>[
-                              TextSpan(
-                                text:
-                                    '${DateFormat('dd/MM/y').format(_selectedDate)}',
-                                style: boldTextStyle.copyWith(
-                                  color: Theme.of(context).primaryColorDark,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                ),
-                FittedBox(
-                  child: FlatButton(
-                    child: Text('alterar data'.toUpperCase()),
-                    onPressed: () {
-                      showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2020),
-                        lastDate: DateTime.now(),
-                      ).then((date) {
-                        if (date == null) {
-                          return;
-                        }
-
-                        setState(() {
-                          _selectedDate = date;
-                        });
-                      });
-                    },
-                  ),
-                ),
-              ],
+            AdaptativeDatePicker(
+              selectedDate: _selectedDate,
+              onDateSelect: _onDateChange,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -175,6 +140,16 @@ class _TransactionFormState extends State<TransactionForm> {
         ),
       ),
     );
+  }
+
+  void _onDateChange(DateTime date) {
+    if (date == null) {
+      return;
+    }
+
+    setState(() {
+      _selectedDate = date;
+    });
   }
 
   Widget _buildButtonRow(BuildContext context, Size size) {
