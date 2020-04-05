@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:intl/intl.dart';
 import 'package:my_money_control/models/transaction.dart';
 import 'package:my_money_control/utils/styles.dart';
 import 'package:my_money_control/widgets/corner_rounded_button.dart';
@@ -31,7 +32,8 @@ class _TransactionFormState extends State<TransactionForm> {
     initialValue: 0.0,
   );
   final _formKey = GlobalKey<FormState>();
-  var type;
+  DateTime _selectedDate;
+  TransactionType _selectedType;
 
   @override
   Widget build(BuildContext context) {
@@ -91,13 +93,6 @@ class _TransactionFormState extends State<TransactionForm> {
               focusNode: _descriptionFocus,
               textCapitalization: TextCapitalization.sentences,
               textInputAction: TextInputAction.next,
-              validator: (text) {
-                if (text.isNotEmpty && text.length > 3) {
-                  return null;
-                } else {
-                  return 'Descrição deve conter pelo menos 3 caracteres';
-                }
-              },
               decoration: InputDecoration(labelText: 'Descrição'),
               onFieldSubmitted: (text) => _valueFocus.requestFocus(),
             ),
@@ -114,12 +109,42 @@ class _TransactionFormState extends State<TransactionForm> {
               },
               decoration: InputDecoration(labelText: 'Valor'),
             ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    _selectedDate == null
+                        ? 'Nenhuma data selecionada'
+                        : 'Data selecionada: ${DateFormat('dd/MM/y').format(_selectedDate)}',
+                  ),
+                ),
+                FlatButton(
+                  child: Text('Selecionar data'.toUpperCase()),
+                  onPressed: () {
+                    showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2020),
+                      lastDate: DateTime.now(),
+                    ).then((date) {
+                      if (date == null) {
+                        return;
+                      }
+
+                      setState(() {
+                        _selectedDate = date;
+                      });
+                    });
+                  },
+                ),
+              ],
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: TransactionTypeSelector(
                 context: context,
                 mainAxisAlignment: MainAxisAlignment.center,
-                initialValue: type,
+                initialValue: null,
                 validator: (type) {
                   return type == null
                       ? 'Deve selecionar o tipo da transação'
@@ -127,7 +152,7 @@ class _TransactionFormState extends State<TransactionForm> {
                 },
                 onSaved: (type) {
                   setState(() {
-                    this.type = type;
+                    this._selectedType = type;
                   });
                 },
               ),
@@ -157,8 +182,9 @@ class _TransactionFormState extends State<TransactionForm> {
           onPressed: () {
             final transaction = Transaction(
               title: _titleController.text.trim(),
-              description: _descriptionController.text.trim(),
-              type: type,
+              description: _descriptionController.text?.trim(),
+              date: _selectedDate,
+              type: _selectedType,
               value: _valueController.numberValue,
             );
 
