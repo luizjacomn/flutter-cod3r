@@ -49,13 +49,13 @@ class ResumeChip extends StatelessWidget {
 
   BorderRadius _buildBorderRadius() {
     return Side.Left == side
-        ? BorderRadius.only(
-            topRight: Radius.circular(24.0),
-            bottomRight: Radius.circular(24.0),
+        ? const BorderRadius.only(
+            topRight: const Radius.circular(24.0),
+            bottomRight: const Radius.circular(24.0),
           )
         : BorderRadius.only(
-            topLeft: Radius.circular(24.0),
-            bottomLeft: Radius.circular(24.0),
+            topLeft: const Radius.circular(24.0),
+            bottomLeft: const Radius.circular(24.0),
           );
   }
 

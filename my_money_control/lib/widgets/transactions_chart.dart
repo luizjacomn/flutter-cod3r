@@ -1,13 +1,8 @@
-import 'package:flutter/material.dart';
-
-import 'package:provider/provider.dart';
 import 'package:animate_do/animate_do.dart';
-
+import 'package:flutter/material.dart';
 import 'package:my_money_control/models/transaction.dart';
 import 'package:my_money_control/models/transaction_chart_vo.dart';
-
 import 'package:my_money_control/utils/dates.dart';
-
 import 'package:my_money_control/widgets/chart_bar.dart';
 import 'package:my_money_control/widgets/resume_tile.dart';
 

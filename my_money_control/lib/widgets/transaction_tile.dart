@@ -116,10 +116,10 @@ class TransactionTile extends StatelessWidget {
             onPressed: fn,
           )
         : OutlineButton(
-            borderSide: BorderSide(color: Colors.redAccent),
+            borderSide: const BorderSide(color: Colors.redAccent),
             child: Text(
               label,
-              style: TextStyle(color: Colors.redAccent),
+              style: const TextStyle(color: Colors.redAccent),
             ),
             onPressed: fn,
           );

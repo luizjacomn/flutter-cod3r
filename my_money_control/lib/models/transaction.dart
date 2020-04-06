@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 
 enum TransactionType { In, Out }
 
@@ -38,4 +38,3 @@ class Transaction implements Comparable<Transaction> {
     return this.type.index.compareTo(other.type.index);
   }
 }
-

@@ -115,16 +115,16 @@ class TransactionTypeSelector extends FormField<TransactionType> {
     return InkWell(
       onTap: () => _onOptionChange(state, onSaved, TransactionType.Out),
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 250),
+        duration: const Duration(milliseconds: 250),
         width: size.width / 4,
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           color: initialValue == TransactionType.Out
               ? Colors.red
               : Theme.of(context).disabledColor,
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(8.0),
-            bottomRight: Radius.circular(8.0),
+          borderRadius: const BorderRadius.only(
+            topRight: const Radius.circular(8.0),
+            bottomRight: const Radius.circular(8.0),
           ),
         ),
         child: Center(

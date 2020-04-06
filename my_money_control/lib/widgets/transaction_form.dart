@@ -58,7 +58,7 @@ class _TransactionFormState extends State<TransactionForm> {
                 ),
               ),
             ),
-            Divider(height: 0.0),
+            const Divider(height: 0.0),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

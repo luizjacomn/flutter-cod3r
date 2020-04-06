@@ -22,7 +22,7 @@ class ResumeTile extends StatelessWidget {
         double width = constraints.maxWidth * 0.495;
         return Material(
           child: ListTileTheme(
-            contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: ExpansionTile(
               title: Text('Resumo dos últimos $resumeDays dias'),
               trailing: Text(''),

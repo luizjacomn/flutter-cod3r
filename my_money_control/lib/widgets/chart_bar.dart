@@ -55,11 +55,11 @@ class ChartBar extends StatelessWidget {
                     children: <Widget>[
                       Container(
                         width: 15.0,
-                        color: Color(0XFFEAEAEA),
+                        color: const Color(0XFFEAEAEA),
                       ),
                       Container(
                         width: 15.0,
-                        color: Color(0XFFEAEAEA),
+                        color: const Color(0XFFEAEAEA),
                       ),
                     ],
                   ),
@@ -120,7 +120,7 @@ class ChartBar extends StatelessWidget {
                                       BoxShadow(
                                         color: Colors.black,
                                         blurRadius: 1.0,
-                                        offset: Offset(1.0, 1.0),
+                                        offset: const Offset(1.0, 1.0),
                                       ),
                                     ],
                                   ),
@@ -149,7 +149,7 @@ class ChartBar extends StatelessWidget {
                                         color: Colors.black,
                                         spreadRadius: 1.0,
                                         blurRadius: 1.0,
-                                        offset: Offset(1.0, 1.0),
+                                        offset:const Offset(1.0, 1.0),
                                       ),
                                     ],
                                   ),
@@ -178,7 +178,7 @@ class ChartBar extends StatelessWidget {
                             style: boldTextStyle.copyWith(
                               fontSize: tSize,
                               color: Theme.of(context).primaryColor,
-                            )),
+                            ),),
                       ),
                     )
                   : Material(

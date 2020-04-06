@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
 
   final List<Transaction> _transactions = [];
 
-  _addTransaction(Transaction transaction) {
+  _addTransaction(final Transaction transaction) {
     setState(() {
       _transactions.add(transaction);
 
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  _removeTransaction(Transaction transaction) {
+  _removeTransaction(final Transaction transaction) {
     setState(() {
       _transactions.removeWhere((tr) => tr.id == transaction.id);
 
@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
     final size = MediaQuery.of(context).size;
 
     final title = FadeInLeft(
-      child: Text('My Money Control'),
+      child: const Text('My Money Control'),
     );
 
     final actions = <Widget>[
@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
             floatingActionButton: isIOS
                 ? Container()
                 : ElasticInUp(
-                    duration: Duration(seconds: 2),
+                    duration: const Duration(seconds: 2),
                     child: FloatingActionButton(
                       backgroundColor: Theme.of(context).accentColor,
                       child: Icon(
@@ -171,12 +171,12 @@ class _HomePageState extends State<HomePage> {
         ? Center(
             child: isIOS
                 ? FadeIn(
-                    delay: Duration(seconds: 1),
+                    delay: const Duration(seconds: 1),
                     child: _buildEmptyList(),
                   )
                 : SlideInRight(
                     from: size.width,
-                    delay: Duration(seconds: 1),
+                    delay: const Duration(seconds: 1),
                     child: _buildEmptyList(),
                   ),
           )
@@ -205,7 +205,7 @@ class _HomePageState extends State<HomePage> {
               'assets/images/empty_transactions.png',
               height: constraints.maxHeight * 0.25,
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             Text(
               'Sem transações',
               style: Theme.of(context).textTheme.title.copyWith(
