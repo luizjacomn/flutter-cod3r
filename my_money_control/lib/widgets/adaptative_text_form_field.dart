@@ -34,6 +34,7 @@ class AdaptativeTextFormField extends StatelessWidget {
         ? Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: CupertinoTextFormField(
+              context: context,
               autofocus: autofocus,
               controller: controller,
               focusNode: focusNode,
