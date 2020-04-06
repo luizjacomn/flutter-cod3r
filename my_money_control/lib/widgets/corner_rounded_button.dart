@@ -37,21 +37,27 @@ class CornerRoundedButton extends StatelessWidget {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              label.toUpperCase(),
-              style: boldTextStyle.copyWith(
-                color: Colors.white,
-              ),
-            ),
-            SizedBox(width: 8.0),
-            Icon(
-              icon,
-              color: Colors.white,
-            ),
-          ],
+          children: cornerRounded == CornerRounded.Left
+              ? _widgets.reversed.toList()
+              : _widgets,
         ),
       ),
     );
+  }
+
+  List<Widget> get _widgets {
+    return [
+      Text(
+        label.toUpperCase(),
+        style: boldTextStyle.copyWith(
+          color: Colors.white,
+        ),
+      ),
+      const SizedBox(width: 8.0),
+      Icon(
+        icon,
+        color: Colors.white,
+      ),
+    ];
   }
 }
