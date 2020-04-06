@@ -17,7 +17,7 @@ class AdaptativeDatePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (Provider.of<bool>(context))
+    return (Provider.of<bool>(context) ?? false)
         ? Container(
             height: 180,
             child: CupertinoDatePicker(
@@ -32,7 +32,7 @@ class AdaptativeDatePicker extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: selectedDate == null
-                    ? Text('Nenhuma data selecionada')
+                    ? const Text('Nenhuma data selecionada')
                     : RichText(
                         text: TextSpan(
                           text: 'Data da transação: ',
@@ -51,14 +51,14 @@ class AdaptativeDatePicker extends StatelessWidget {
               ),
               FittedBox(
                 child: FlatButton(
-                  child: Text('alterar data'.toUpperCase()),
+                  child: const Text('ALTERAR DATA'),
                   onPressed: () {
                     showDatePicker(
                       context: context,
                       initialDate: DateTime.now(),
                       firstDate: DateTime(2020),
                       lastDate: DateTime.now(),
-                    ).then((date) => onDateSelect);
+                    ).then(onDateSelect);
                   },
                 ),
               ),
