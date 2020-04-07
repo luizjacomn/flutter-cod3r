@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:meal_algorithms/pages/categories_items_page.dart';
 import 'package:meal_algorithms/pages/home_page.dart';
 import 'package:meal_algorithms/pages/meal_detail_page.dart';
+import 'package:meal_algorithms/pages/settings_page.dart';
 import 'package:meal_algorithms/pages/unknown_route.dart';
 
 void main() => runApp(MyApp());
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         HomePage.route: (_) => HomePage(),
         CategoriesItemsPage.route: (_) => CategoriesItemsPage(),
         MealDetailPage.route: (_) => MealDetailPage(),
+        SettingsPage.route: (_) => SettingsPage(),
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(fullscreenDialog: true,

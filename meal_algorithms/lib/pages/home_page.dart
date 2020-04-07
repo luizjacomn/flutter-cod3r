@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:meal_algorithms/widgets/meals_drawer.dart';
+
 import 'package:meal_algorithms/pages/categories_page.dart';
 import 'package:meal_algorithms/pages/favorites_page.dart';
 
@@ -11,14 +13,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<Map<String, Object>> _tabsMap = [
-    {
-      'title': 'Lista de categorias',
-      'tab': CategoriesPage(),
-    },
-    {
-      'title': 'Receitas favoritas',
-      'tab': FavoritesPage(),
-    },
+    {'title': 'Lista de categorias', 'tab': CategoriesPage()},
+    {'title': 'Receitas favoritas', 'tab': FavoritesPage()},
   ];
 
   int _selectedTabIndex = 0;
@@ -35,6 +31,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(_tabsMap[_selectedTabIndex]['title']),
       ),
+      drawer: MealsDrawer(),
       body: _tabsMap[_selectedTabIndex]['tab'],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedTabIndex,
