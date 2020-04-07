@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:meal_algorithms/pages/categories_items_page.dart';
-import 'package:meal_algorithms/pages/categories_page.dart';
+import 'package:meal_algorithms/pages/home_page.dart';
 import 'package:meal_algorithms/pages/meal_detail_page.dart';
 import 'package:meal_algorithms/pages/unknown_route.dart';
 
@@ -32,7 +30,7 @@ class MyApp extends StatelessWidget {
             ),
       ),
       routes: {
-        CategoriesPage.route: (_) => CategoriesPage(),
+        HomePage.route: (_) => HomePage(),
         CategoriesItemsPage.route: (_) => CategoriesItemsPage(),
         MealDetailPage.route: (_) => MealDetailPage(),
       },
