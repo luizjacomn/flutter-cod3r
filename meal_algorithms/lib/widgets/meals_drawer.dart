@@ -4,13 +4,39 @@ import 'package:meal_algorithms/pages/home_page.dart';
 import 'package:meal_algorithms/pages/settings_page.dart';
 
 class MealsDrawer extends StatelessWidget {
-  Widget _item(IconData icon, String label, Function toRoute) {
+  final String route;
+
+  const MealsDrawer(this.route);
+
+  Widget _item({
+    BuildContext context,
+    IconData icon,
+    String label,
+    String currentRoute,
+    bool isCurrentRoute,
+  }) {
     return ListTile(
-      leading: Icon(icon),
-      title: Text(label),
-      onTap: toRoute,
+      leading: Icon(
+        icon,
+        color: isCurrentRoute
+            ? Theme.of(context).disabledColor
+            : Theme.of(context).accentColor,
+      ),
+      title: Text(
+        label,
+        style: TextStyle(
+          color: isCurrentRoute
+              ? Theme.of(context).disabledColor
+              : Theme.of(context).accentColor,
+        ),
+      ),
+      onTap: isCurrentRoute
+          ? null
+          : () => Navigator.of(context).pushReplacementNamed(currentRoute),
     );
   }
+
+  bool _isThisRoute(String route) => this.route == route;
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +62,18 @@ class MealsDrawer extends StatelessWidget {
           ),
           const SizedBox(height: 16.0),
           _item(
-            Icons.restaurant,
-            'Refeições',
-            () => Navigator.of(context).pushReplacementNamed(HomePage.route),
+            context: context,
+            icon: Icons.restaurant,
+            label: 'Refeições',
+            currentRoute: HomePage.route,
+            isCurrentRoute: _isThisRoute(HomePage.route),
           ),
           _item(
-            Icons.tune,
-            'Configurações',
-            () => Navigator.of(context).pushReplacementNamed(SettingsPage.route),
+            context: context,
+            icon: Icons.tune,
+            label: 'Configurações',
+            currentRoute: SettingsPage.route,
+            isCurrentRoute: _isThisRoute(SettingsPage.route),
           ),
         ],
       ),

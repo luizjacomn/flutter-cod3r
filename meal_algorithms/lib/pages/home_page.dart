@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(_tabsMap[_selectedTabIndex]['title']),
       ),
-      drawer: MealsDrawer(),
+      drawer: MealsDrawer(HomePage.route),
       body: _tabsMap[_selectedTabIndex]['tab'],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedTabIndex,
