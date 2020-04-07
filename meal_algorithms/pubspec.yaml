@@ -9,6 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  cached_network_image: ^2.0.0
   cupertino_icons: ^0.1.2
   font_awesome_flutter: ^8.8.1
 
@@ -18,11 +19,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
-  #  - images/a_dot_ham.jpeg
 
   fonts:
   - family: ComicNeue

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:meal_algorithms/models/category.dart';
+import 'package:meal_algorithms/pages/categories_items_page.dart';
 
 class CategoryTile extends StatelessWidget {
   final Category category;
@@ -10,7 +11,12 @@ class CategoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushNamed(
+          CategoriesItemsPage.route,
+          arguments: category,
+        );
+      },
       borderRadius: BorderRadius.circular(16.0),
       child: Material(
         elevation: 4.0,
