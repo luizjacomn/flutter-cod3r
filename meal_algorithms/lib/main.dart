@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_svg/flutter_svg.dart';
+
+import 'package:meal_algorithms/pages/categories_items_page.dart';
 import 'package:meal_algorithms/pages/categories_page.dart';
+import 'package:meal_algorithms/pages/meal_detail_page.dart';
+import 'package:meal_algorithms/pages/unknown_route.dart';
 
 void main() => runApp(MyApp());
 
@@ -26,7 +31,18 @@ class MyApp extends StatelessWidget {
               ),
             ),
       ),
-      home: CategoriesPage(),
+      routes: {
+        CategoriesPage.route: (_) => CategoriesPage(),
+        CategoriesItemsPage.route: (_) => CategoriesItemsPage(),
+        MealDetailPage.route: (_) => MealDetailPage(),
+      },
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(fullscreenDialog: true,
+          builder: (context) => UnknownRoute(
+            routeName: settings.name,
+          ),
+        );
+      },
     );
   }
 }
