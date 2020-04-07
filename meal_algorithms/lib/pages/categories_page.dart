@@ -5,6 +5,8 @@ import 'package:meal_algorithms/widgets/category_tile.dart';
 import 'package:meal_algorithms/data/dummy_data.dart';
 
 class CategoriesPage extends StatelessWidget {
+  static const String route = '/';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
