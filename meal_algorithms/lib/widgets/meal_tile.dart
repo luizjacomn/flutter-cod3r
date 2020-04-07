@@ -5,6 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:meal_algorithms/models/meal.dart';
 
+import 'package:meal_algorithms/pages/meal_detail_page.dart';
+
 class MealTile extends StatelessWidget {
   final Meal meal;
 
@@ -17,7 +19,10 @@ class MealTile extends StatelessWidget {
       margin: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () {
-          
+          Navigator.of(context).pushNamed(
+            MealDetailPage.route,
+            arguments: meal,
+          );
         },
         child: Card(
           elevation: 4.0,
