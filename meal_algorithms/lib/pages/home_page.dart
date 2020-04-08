@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meal_algorithms/models/meal.dart';
 
 import 'package:meal_algorithms/widgets/meals_drawer.dart';
 
@@ -7,15 +8,16 @@ import 'package:meal_algorithms/pages/favorites_page.dart';
 
 class HomePage extends StatefulWidget {
   static const String route = '/';
+  final List<Meal> favoriteMeals;
+
+  const HomePage(this.favoriteMeals);
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Map<String, Object>> _tabsMap = [
-    {'title': 'Lista de categorias', 'tab': CategoriesPage()},
-    {'title': 'Receitas favoritas', 'tab': FavoritesPage()},
-  ];
+  List<Map<String, Object>> _tabsMap;
 
   int _selectedTabIndex = 0;
 
@@ -23,6 +25,18 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _selectedTabIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _tabsMap = [
+      {'title': 'Lista de categorias', 'tab': CategoriesPage()},
+      {
+        'title': 'Receitas favoritas',
+        'tab': FavoritesPage(widget.favoriteMeals)
+      },
+    ];
   }
 
   @override

@@ -21,6 +21,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Settings _settings = Settings();
   List<Meal> _availableMeals = DUMMY_MEALS;
+  List<Meal> _favoriteMeals = [];
 
   void _filterMeals(Settings settings) {
     setState(() {
@@ -37,6 +38,16 @@ class _MyAppState extends State<MyApp> {
       }).toList();
     });
   }
+
+  void _toggleFav(Meal meal) {
+    setState(() {
+      _isFavorite(meal)
+          ? _favoriteMeals.removeWhere((fav) => fav.id == meal.id)
+          : _favoriteMeals.add(meal);
+    });
+  }
+
+  bool _isFavorite(Meal meal) => _favoriteMeals.contains(meal);
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +71,9 @@ class _MyAppState extends State<MyApp> {
             ),
       ),
       routes: {
-        HomePage.route: (_) => HomePage(),
+        HomePage.route: (_) => HomePage(_favoriteMeals),
         CategoriesItemsPage.route: (_) => CategoriesItemsPage(_availableMeals),
-        MealDetailPage.route: (_) => MealDetailPage(),
+        MealDetailPage.route: (_) => MealDetailPage(_isFavorite, _toggleFav),
         SettingsPage.route: (_) => SettingsPage(_settings, _filterMeals),
       },
       onUnknownRoute: (settings) {

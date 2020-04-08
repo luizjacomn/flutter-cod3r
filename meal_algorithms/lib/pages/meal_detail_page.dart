@@ -7,6 +7,11 @@ import 'package:meal_algorithms/models/meal.dart';
 class MealDetailPage extends StatelessWidget {
   static const String route = '/meal-detail';
 
+  final bool Function(Meal) isFavorite;
+  final Function(Meal) toggleFav;
+
+  const MealDetailPage(this.isFavorite, this.toggleFav);
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -79,6 +84,10 @@ class MealDetailPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(isFavorite(meal) ? Icons.favorite : Icons.favorite_border),
+        onPressed: () => toggleFav(meal),
       ),
     );
   }
