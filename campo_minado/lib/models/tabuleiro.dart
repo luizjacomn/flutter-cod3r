@@ -75,7 +75,7 @@ class Tabuleiro {
 
   List<Campo> get campos => this._campos;
 
-  bool get resovido => this._campos.every((c) => c.resolvido);
+  bool get resolvido => this._campos.every((c) => c.resolvido);
 
   int get numCamposMinados => this.campos.where((c) => c.minado).length;
 }

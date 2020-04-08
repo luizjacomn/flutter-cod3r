@@ -33,7 +33,7 @@ main() {
       tabuleiro.campos[2].abrir();
       tabuleiro.campos[3].alternarMarcacao();
 
-      expect(tabuleiro.resovido, isTrue);
+      expect(tabuleiro.resolvido, isTrue);
     });
 
     test('Perder jogo', () {
