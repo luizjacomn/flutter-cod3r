@@ -1,0 +1,1 @@
+class VizinhoRepetidoException implements Exception{}
