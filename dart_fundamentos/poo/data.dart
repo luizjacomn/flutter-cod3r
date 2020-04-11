@@ -3,6 +3,8 @@ class Data {
   int mes;
   int ano;
 
+  Data([this.dia = 1, this.mes = 1, this.ano = 1970]);
+
   @override
   String toString() {
     final d = dia.toString().padLeft(2, '0');
@@ -12,17 +14,19 @@ class Data {
 }
 
 main() {
-  var dataNiver = Data();
-  dataNiver.dia = 7;
-  dataNiver.mes = 2;
-  dataNiver.ano = 2020;
+  var dataNiver = Data(7, 2, 2020);
 
   print(dataNiver);
 
-  var dataCompra = Data();
-  dataCompra.dia = 13;
-  dataCompra.mes = 10;
-  dataCompra.ano = 2021;
+  var dataCompra = Data(13, 10, 2021);
 
   print(dataCompra);
+
+  var dataOpcionalAnoPadrao = Data(13, 10);
+  var dataOpcionalMesAnoPadrao = Data(13);
+  var dataOpcionalDiaMesAnoPadrao = Data();
+
+  print(dataOpcionalAnoPadrao);
+  print(dataOpcionalMesAnoPadrao);
+  print(dataOpcionalDiaMesAnoPadrao);
 }
