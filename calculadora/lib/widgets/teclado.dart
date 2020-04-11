@@ -27,7 +27,7 @@ class Teclado extends StatelessWidget {
                 Botao(texto: '7', aoClicar: aoClicar),
                 Botao(texto: '8', aoClicar: aoClicar),
                 Botao(texto: '9', aoClicar: aoClicar),
-                Botao.operacao(texto: '*', aoClicar: aoClicar),
+                Botao.operacao(texto: 'x', aoClicar: aoClicar),
               ],
             ),
             const SizedBox(height: 1),
